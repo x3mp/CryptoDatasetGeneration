@@ -1,0 +1,15 @@
+# Ignore the .env file with credentials.
+.env
+.idea
+
+# Ignore any csv files.
+*.csv
+
+# Ignore __init__.py files.
+**/__init__.py
+
+# Ignore __pycache__ directories.
+**/__pycache__/
+
+# Ignore .vscode directory.
+.vscode/
