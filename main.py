@@ -9,6 +9,10 @@ def get_historical_data(symbol, time_window, start_time, end_time, APIKEY, APISE
     # Create an instance of BitvavoRestClient
     bitvavo_rest_client = BitvavoRestClient(APIKEY, APISECRET, bitvavo_api)
 
+    if not APIKEY:
+        print("API key is missing. Please provide your Bitvavo API key.")
+        return
+
     while start_time < end_time:
         try:
             timestamp = int(time.time() * 1000)
@@ -37,10 +41,13 @@ def get_historical_data(symbol, time_window, start_time, end_time, APIKEY, APISE
                         writer.writerow(['timestamp', 'open', 'high', 'low', 'close', 'volume'])
                     # Write data
                     writer.writerows(formatted_data)
+                    print(f"Data successfully written to {symbol}_historical_data_{time_window}.csv")
             else:
+                print("No more data to retrieve.")
                 break  # No more data to retrieve
         except Exception as e:  # catch all exceptions
             if '429' in str(e):  # rate limit exceeded
+                print("Rate limit exceeded. Pausing for 1 minute...")
                 time.sleep(60)  # pause for 1 minute
             else:
                 raise
@@ -48,4 +55,4 @@ def get_historical_data(symbol, time_window, start_time, end_time, APIKEY, APISE
 start_time = datetime(2021, 1, 1)
 end_time = datetime.now()
 
-get_historical_data('BTC-EUR', '5m', start_time, end_time, APIKEY, APISECRET)
+get_historical_data('ETH-EUR', '5m', start_time, end_time, APIKEY, APISECRET)
