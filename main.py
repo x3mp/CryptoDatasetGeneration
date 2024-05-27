@@ -1,11 +1,8 @@
-import os
-from dotenv import load_dotenv
-import python_bitvavo_api.bitvavo as bitvavo
 import csv
 import time
 import requests
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from bitvavo_rest_client import BitvavoRestClient, APIKEY, APISECRET, bitvavo_api
 
 def get_historical_data(symbol, time_window, start_time, end_time, APIKEY, APISECRET):
