@@ -1,4 +1,4 @@
-# Bitvavo Historical Data Fetcher
+# Crypto Dataset Generator
 
 This Python script fetches historical data for a specified trading pair from the Bitvavo API and saves it to a CSV file.
 
