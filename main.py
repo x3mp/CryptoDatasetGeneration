@@ -31,6 +31,11 @@ def get_historical_data(symbol, time_window, start_time, end_time, APIKEY, APISE
                 formatted_data = [[datetime.fromtimestamp(int(candle[0]) / 1000).strftime('%d-%m-%Y %H:%M')] + candle[1:] for candle in data]
                 with open(f'{symbol}_historical_data_{time_window}.csv', 'a', newline='') as f:
                     writer = csv.writer(f)
+                    # Check if file is empty
+                    if f.tell() == 0:
+                        # Write headers
+                        writer.writerow(['timestamp', 'open', 'high', 'low', 'close', 'volume'])
+                    # Write data
                     writer.writerows(formatted_data)
             else:
                 break  # No more data to retrieve
@@ -43,4 +48,4 @@ def get_historical_data(symbol, time_window, start_time, end_time, APIKEY, APISE
 start_time = datetime(2021, 1, 1)
 end_time = datetime.now()
 
-get_historical_data('BTC-EUR', '1h', start_time, end_time, APIKEY, APISECRET)
+get_historical_data('BTC-EUR', '5m', start_time, end_time, APIKEY, APISECRET)
